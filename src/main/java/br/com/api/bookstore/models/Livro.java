@@ -23,7 +23,7 @@ public class Livro implements Serializable {
 	private String texto;
 	
 	@ManyToOne
-	@JoinColumn(name="caegoria_id")
+	@JoinColumn(name="categoria_id")
 	private Categoria categoria;
 
 	public Livro() {
