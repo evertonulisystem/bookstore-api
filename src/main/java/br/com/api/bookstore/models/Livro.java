@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Livro implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -22,6 +24,8 @@ public class Livro implements Serializable {
 	private String nome;
 	private String texto;
 	
+	@JsonIgnore //para nao trazer a categoria dos livros. Se nao colocar da erro infinito na busca,,repetindo a categora de cada livro..loop infinito
+	//Esta ação é a proteção contra serialização - nem funciona no swaggger se nao colocar
 	@ManyToOne
 	@JoinColumn(name="categoria_id")
 	private Categoria categoria;
