@@ -1,5 +1,6 @@
 package br.com.api.bookstore.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,4 +23,11 @@ public class CategoriaService {
 			//mais limpo abaixo return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " +id + ",Tipo: " + Categoria.class.getName()));
 			return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado!"));
 	}
+	
+	
+	public List<Categoria> findAll(){
+		return categoriaRepository.findAll();
+	}
+	
+	
 }

@@ -1,5 +1,8 @@
 package br.com.api.bookstore.controllers;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -7,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.api.bookstore.DTO.CategoriaDTO;
 import br.com.api.bookstore.models.Categoria;
 import br.com.api.bookstore.services.CategoriaService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -27,5 +31,13 @@ public class CategoriaController {
 		return ResponseEntity.ok().body(obj);
 	}
 	
+	@Tag(name="Categoria")
+    @Operation(summary = "Lista de Categorias")
+	@GetMapping
+	public ResponseEntity<List<CategoriaDTO>> findAll() {
+		List<Categoria> list = categoriaService.findAll(); //abaixo transformando Categoria em CategoriaDTO sem mapper
+		List<CategoriaDTO> listDTO = list.stream().map(obj -> new CategoriaDTO(obj)).collect(Collectors.toList());
+	    return ResponseEntity.ok().body(listDTO);
+	}
 
 }
