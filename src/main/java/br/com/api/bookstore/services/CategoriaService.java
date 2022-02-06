@@ -4,9 +4,11 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import br.com.api.bookstore.DTO.CategoriaDTO;
+
 import br.com.api.bookstore.exception.ObjectNotFoundException;
 import br.com.api.bookstore.models.Categoria;
 import br.com.api.bookstore.repositories.CategoriaRepository;
@@ -47,6 +49,14 @@ public class CategoriaService {
 
 	public void delete(Integer id) {
 		findById(id);
-		categoriaRepository.deleteById(id);
+		//categoriaRepository.deleteById(id); aqui ocorre a exeç~..apos criar a exceptio cooque try cartg
+		try {
+			categoriaRepository.deleteById(id);
+		}catch(DataIntegrityViolationException e) {
+					throw new br.com.api.bookstore.exception.DataIntegrityViolationException(
+							"Categoria não pode ser deletada!Possui livros associados");
+			
+		}
+		
  }
 }

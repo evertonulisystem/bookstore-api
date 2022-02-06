@@ -16,5 +16,12 @@ public class GlobalExceptionHandler {
 		ErrorMessage error = new ErrorMessage(HttpStatus.NOT_FOUND.value(), e.getMessage());
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
 	}
+	
+	@ExceptionHandler(DataIntegrityViolationException.class)
+	public ResponseEntity<ErrorMessage> dataIntegrityViolationException(DataIntegrityViolationException e, ServletRequest request){
+		//ErrorMessage error = new ErrorMessage(System.currentTimeMillis(),HttpStatus.NOT_FOUND.value(), e.getMessage());
+		ErrorMessage error = new ErrorMessage(HttpStatus.BAD_REQUEST.value(), e.getMessage());
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+	}
 
 }
