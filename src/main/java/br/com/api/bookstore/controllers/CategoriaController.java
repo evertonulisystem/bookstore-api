@@ -50,7 +50,8 @@ public class CategoriaController {
 	public ResponseEntity<Categoria> create(@RequestBody Categoria obj ) {
 		obj = categoriaService.create(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/id").buildAndExpand(obj.getId()).toUri();
-		return ResponseEntity.created(uri).body(obj);
+		//return ResponseEntity.created(uri).body(obj); //ficando build, não retorna nada no RESPONSE bODY
+		return ResponseEntity.created(uri).build();
 				
 	}
 
